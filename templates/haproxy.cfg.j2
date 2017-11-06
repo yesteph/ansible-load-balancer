@@ -28,9 +28,12 @@ defaults
     timeout http-keep-alive 10s
     timeout check           10s
     maxconn                 3000
+    stats enable
+    stats uri /stats # Real path redacted
+    stats realm Haproxy\ Statistics
 
 backend app
-    {% for host in groups.load-balancers %}
+    {% for host in groups.loadbalancers %}
     	listen {{ daemonname }} 0.0.0.0:{{ listenport }}
     {% endfor %}
     balance     {{ balance }}
